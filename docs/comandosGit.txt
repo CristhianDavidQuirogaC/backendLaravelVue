@@ -1,0 +1,22 @@
+--------------Solo git (no github tampoco gitlab)---------------
+Git es una herramienta que se instala en el equipo
+GitHub, GitLab y GitBucket -> son empresas que te dan espacio de memoria para subir 
+proyectos a un repositorio y poder versionarlo. Tiene costo si quieres guardar
+codigo de manera privada, Si no pagas tu codigo será público
+Comandos:
+
+-- iniciar un repositorio nuevo (nunca fue creado): git init
+-- Si ya existe un repositorio: git clone dirección_repositorio
+
+Luego crear un repositorio en una de las empresas GitHub, GitLab y GitBucket
+una vez crearo el repositorio 
+-- Enlazar repositorio remoto (solo se hace eso una sola vez)
+  ----git remote add origin https://github.com/CristhianDavidQuirogaC/backendLaravelVue.git
+------------------------------------------------------------------------------------------
+subir cambios:(después de modificar algo satisfactoriamente)
+    - git add
+    - git commit -m "descrp del cambio realizado"
+    - git push origin master      (master es el nombre de la rama)
+
+
+

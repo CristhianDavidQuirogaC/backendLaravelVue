@@ -1,0 +1,12 @@
+1.-  Antes de ejecutar  las migraciones primero configurar .env
+    - php artisan migrate
+
+2.-  Generamos un controlador AuthController (No va a ser un recurso ya que 
+    tendrá  funciones como login register  profile y loguot ) 
+    -php artisan make:controller AuthController
+3.-  Registrar las rutas o endPoints puntos de acceso hacia la app desde un 
+    cliente el orden no importa (routes/api.php)
+    - POST /api/v1/auth/login
+    - POST /api/v1/auth/logout
+    - POST /api/v1/auth/perfil
+    - GET /api/v1/auth/registro

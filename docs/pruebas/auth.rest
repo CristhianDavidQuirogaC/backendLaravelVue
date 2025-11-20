@@ -1,0 +1,33 @@
+//este archivo nos permite hacer pruebas de una api creada con servidor levantado
+//No debe de haber ni una coma de más en el caso del ultimo registro
+POST http://127.0.0.1:8000/api/v1/auth/registro
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "Josue",
+    "email": "josuen@gmail.com",
+    "password": "josue123",
+    "c_password": "josue123"
+    
+}
+
+### Login
+POST http://127.0.0.1:8000/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "josuen@gmail.com",
+    "password": "josue123"
+}
+
+### perfil
+GET http://127.0.0.1:8000/api/v1/auth/perfil
+Accept: application/json
+Authorization: Bearer 9|1IGCOYjwR806qoQPrgO8jBeTu2RWhzp2kAwiiqq8f0b3a775
+
+### Logout
+POST http://127.0.0.1:8000/api/v1/auth/logout
+Accept: application/json
+Authorization: Bearer 10|1Cba5kITOzpifkYdxM1DYUlgBJjClsLpVZ8ZqsMR9a1df74d

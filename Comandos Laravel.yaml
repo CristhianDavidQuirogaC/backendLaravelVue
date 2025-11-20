@@ -1,0 +1,38 @@
+                  Comandos: Laravel
+crear un proyecto de Laravel: composer create-project laravel/laravel NombreProyecto
+En Laravel 11, el archivo api.php no se crea por defecto porque la creación 
+de una API es una característica opcional. 
+Para generarlo, debes ejecutar el comando: php artisan install:api
+Este comando también instala Laravel Sanctum, publica las rutas y 
+genera las migraciones necesarias. 
+
+
+------------ Creando controladores ----------------
+controlador para tabla productos:  php artisan make:controller NombreController
+Para crear un controlador con recursos como CRUD crear, guardar, mostrar, editar 
+crear controlador con recursos: php artisan make:controller NombreController -r
+
+
+Arancar el proyecto: php artisan serve;
+Listar las rutas: php artisan route:List,
+Arrancar las migraciones o migrar las tablas: php artisan migrate;
+para ver el estado de Migracion: php artisan migate: status;
+Para revertir migraciones: php artisan migrate:rollback;
+
+-------------- Models ---------------
+crear un modelo, siempre crear de acuerdo a gerarquía de dependencias
+generar un modelo (singular) : php artisan make:model NombreModelo
+
+------------- Migracion ------------
+generar una migración: php artisan migration clientes
+generar una migración: php artisan migration table_clientes
+lo mejor es la de abajo ya que esto sugiere Laravel
+generar una migración: php artisan migration create_clientes_table
+
+-------------- Models y Migracion al mismo tiempo ---------------
+php artisan make:model Pedido --migration
+php artisan make:model Pedido --m
+
+------------- Para guardar y activar Seeder --------------
+Los seeders generan datos de manera aleatoria y para 
+Migrar y ejecutar seeder: php artisan migrate --seed 

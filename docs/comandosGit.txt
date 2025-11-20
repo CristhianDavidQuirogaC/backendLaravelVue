@@ -12,11 +12,23 @@ Luego crear un repositorio en una de las empresas GitHub, GitLab y GitBucket
 una vez crearo el repositorio 
 -- Enlazar repositorio remoto (solo se hace eso una sola vez)
   ----git remote add origin https://github.com/CristhianDavidQuirogaC/backendLaravelVue.git
+  Para ver con que repositorio estamos se hace 
+        ---git remote -v
 ------------------------------------------------------------------------------------------
 subir cambios:(después de modificar algo satisfactoriamente)
-    - git add
+    - git add .
     - git commit -m "descrp del cambio realizado"
     - git push origin master      (master es el nombre de la rama)
+Tambien el editor Visual estudio nos permite hacer connmits desde botones 
+y nos muestra los cambios y donde se hicieron los cambios
 
-
-
+Cuando uno descarga un proyecto desde un repositorio a una computadora
+se descarga con:  
+    -  git clone
+lugo entrar en dentro de esa carpeta descargada y
+Luego bajar actualizacines dependencias paquetes y configuraciones:  
+    - composer update
+Luego clonar el archivo .env
+---------------------------------
+cada vez que queremos bajar cambios hechos por otros colaboradores se hace 
+    - git pull origen master

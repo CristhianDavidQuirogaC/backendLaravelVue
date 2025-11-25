@@ -24,7 +24,7 @@ class AuthController extends Controller
         if(!Auth::attempt($credenciales)){  //si no esta logueado entonces no podrá entrar
             return response()->json([
                 "mensaje" => "No autorizado"
-            ],401); //el 401 es el mensaje que indica que la solicitud no se pudo completar 
+            ], 401); //el 401 es el mensaje que indica que la solicitud no se pudo completar 
             //porque carece de credenciales de autenticación válidas para acceder al recurso
         }
 
@@ -36,6 +36,7 @@ class AuthController extends Controller
 
         return response()->json([
             'acces_token' => $token, //devolvemos el token
+            "user" => $usuario,
             'token_type' => 'Bearer', //devolvemos al portador del token
             //tambien se puede enviar al usuario
         ]);

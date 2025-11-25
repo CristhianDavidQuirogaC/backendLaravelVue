@@ -31,4 +31,4 @@ Luego bajar actualizacines dependencias paquetes y configuraciones:
 Luego clonar el archivo .env
 ---------------------------------
 cada vez que queremos bajar cambios hechos por otros colaboradores se hace 
-    - git pull origen master
+    - git pull origen master 

@@ -35,3 +35,7 @@ Route::group(['prefix' => 'v1/auth'], function(){
     });
 
 });
+
+Route::get("/no-autorizado", function(){
+    return ["mensaje"=> "No tienes permiso para acceder a esta pagina"];
+})->name("login");

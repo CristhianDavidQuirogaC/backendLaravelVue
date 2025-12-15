@@ -10,3 +10,27 @@
     - POST /api/v1/auth/logout
     - POST /api/v1/auth/perfil
     - GET /api/v1/auth/registro
+
+4.- Generar los modelos + migraciones
+    - php artisan make:model Categoria -m
+    - php artisan make:model Producto -m
+    - php artisan make:model Cliente -m
+    - php artisan make:model Pedido -m
+
+    - Para la tabla relación o pivote NO TIENE modelo (orden alfabetico)
+    - php artisan make:migration create_pedido_producto_table
+5.- Generar los controller
+    - php artisan make:controller CategoriaController --api
+    - php artisan make:controller ProductoController --api
+    - php artisan make:controller ClienteController --api
+    - php artisan make:controller PedidoController --api
+
+6.- generar Rutas en la carpeta routes archivo api.php
+    //CRUD API formamos las rutas o puntos de acceso ENDPOINTS
+    Route::apiResource("categoria", CategoriaController::class);
+    Route::apiResource("producto", ProductoController::class);
+    Route::apiResource("cliente", ClienteController::class);
+    Route::apiResource("pedido", PedidoController::class);
+
+7.- Ver el estado de las migraciones Creadas pero aun no migradas
+    - php artisan migrate:status

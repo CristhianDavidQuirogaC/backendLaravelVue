@@ -47,4 +47,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //Función indicando que este usuario puede vender muchos pedidos
+    public function pedidos(){
+        return $this->hasMany(Pedido::class);
+    }
 }

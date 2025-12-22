@@ -39,9 +39,11 @@ Route::group(['prefix' => 'v1/auth'], function(){
     });
 
 });
+//Actualizar imagen actualizarImagen es una funcion de ProductoController
+Route::put("producto/{id_prod}/actualizar-img", [ProductoController::class, "actualizarImagen"]);
 
 //CRUD API formamos las rutas o puntos de acceso ENDPOINTS
-Route::apiResource("categoria", CategoriaController::class);
+Route::apiResource("categoria", CategoriaController::class); //get, put, post, delete
 Route::apiResource("producto", ProductoController::class);
 Route::apiResource("cliente", ClienteController::class);
 Route::apiResource("pedido", PedidoController::class);

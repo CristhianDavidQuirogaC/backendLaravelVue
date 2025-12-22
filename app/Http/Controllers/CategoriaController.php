@@ -18,7 +18,7 @@ class CategoriaController extends Controller
         //$categorias = Categoria::select("id", "nombre")->get(); 
 
         //lo de abajo solo devuelve todos los datos de categoría
-        $categorias = Categoria::get();
+        $categorias = Categoria::orderBy('id', 'desc')->get();
         return response()->json($categorias, 200);
     }
 
@@ -60,7 +60,8 @@ class CategoriaController extends Controller
         $request->validate([
             //validamos que nombre sea el unico verificando el campo nombre
             //excepto el registro actual o el mismo identificador (mismo nombre)
-            "nombre" => "required|unique:categorias, nombre, $id"
+            //"required|unique:categorias,nombre,$id" sin espacios
+            "nombre" => "required|unique:categorias,nombre,$id"
         ]);
         //necesitamos buscar la categoria
         $categoria = Categoria::find($id);

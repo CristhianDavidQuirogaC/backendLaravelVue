@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use SebastianBergmann\Environment\Console;
 
 class ProductoController extends Controller
 {
@@ -24,14 +25,16 @@ class ProductoController extends Controller
         }else{
             $filas = 5;
         }
-        if($request->q){
+        if($request->q){ //si existe el valor de búsqueda 
             // filtramos el tipo de orden de acuerdo al valor enviado por el front
+            //Producto donde el nombre sea como o igual (like) a cualquier valor al inicio (%)
+            //el valor de búsqueda "$request->q#  y cualquier valor al final (%)
             $productos = Producto::orwhere('nombre', 'like', '%'.$request->q.'%')
                                 ->orwhere('precio', 'like', '%'.$request->q.'%')
                                 ->paginate($filas);
         }else{
             // abajo le decimos q devuelva $filas datos de la pagina 1
-        $productos = Producto::with('categoria')->paginate($filas);
+            $productos = Producto::with('categoria')->paginate($filas);
         }
         //retorna la información
         return response()->json($productos, 200);
@@ -48,17 +51,20 @@ class ProductoController extends Controller
             //precio y stock vienen por defecto con valor de 0, imagen y descripción no es obligatorio
             "categoria_id" => "required"
         ]);
-        //subir imagen 1ro preguntampos si hay imagen y luego recien lo subimos
+        //2do subir imagen 1ro preguntampos si hay imagen y luego recien lo subimos
         //haremos una subida local. es decir en la carpeta public. ya q son pocas imagenes
         $imagen = "";
+        //si en la respuesta existe un file o archivo con nombre imagen.. Lo almaceno en $file
         if($file = $request->file("imagen")){
             //formamos la direccion de subida de la imagen concatenando para evitar duplicidad
             $direccion_imagen = time()."-".$file->getClientOriginalName();
-            //lo subimos directamente a la carpeta public
+            //lo subimos directamente a la carpeta public y lo nombramos imagenes y se creará 
+            //aqui se mueve el archivo a la carpeta imagenes
             $file->move("imagenes/", $direccion_imagen);
-            $imagen = "imagenes/".$direccion_imagen;//actualizamos la variable
+            //actualizamos la variable $imagen 
+            $imagen = "imagenes/".$direccion_imagen;//actualizamos la variable y se guardara en la BD
         }
-        //guardar datos
+        //3ro guardar datos capturando los datos de la tabla o Modal 
         $producto = new Producto();
         $producto->nombre = $request->nombre;
         $producto->precio = $request->precio;
@@ -68,7 +74,7 @@ class ProductoController extends Controller
         $producto->imagen = $imagen;
         $producto->save();      
 
-        // respuesta
+        //4to  respuesta
         return response()->json(["mensaje" => "Producto registrado", 201]);
     }
 
@@ -108,21 +114,23 @@ class ProductoController extends Controller
            
         //subida de imagnes
         //1ro preguntampos si hay cambio de imagen y luego recien lo subimos
-        //haremos una subida local. es decir en la carpeta public. ya q son pocas imagenes
-        $imagen = $producto->imagen;
+        
+        //$imagen = $producto->imagen; //recuperamos la imagen en caso de no querer modifircarla
+        //si hay una nueva imagen cargada, la reemplazamos, sino se queda con la misma
         if($file = $request->file("imagen")){
             //formamos la direccion de subida de la imagen concatenando para evitar duplicidad
-            $direccion_imagen = time()."-".$file->getClientOriginalName();
+            $direccion_imagen = time()."-" .$file->getClientOriginalName();
             //lo subimos directamente a la carpeta public
             $file->move("imagenes/", $direccion_imagen);
-            $imagen = "imagenes/".$direccion_imagen;//actualizamos la variable
+            $imagen = "imagenes/". $direccion_imagen;//actualizamos la variable
+            //Solo si hay un cambi ode imagen lo reemplazamos
             $producto->imagen = $imagen;
         }
 
         $producto->save();
 
         // respuesta
-        return response()->json(["mensaje" => "Producto Actualizado", 200]);
+        return response()->json(["mensaje" => "Producto Actualizadoss", 200]);
     }
 
     /**
@@ -137,23 +145,28 @@ class ProductoController extends Controller
         return response()->json(["mensaje" => "Producto Eliminado", 200]);
     }
 
-    //llega la imagen en Request $request $id llega como parametro desde api.php
-    public function actualizarImagen (Request $request, $id)
+    //llega la imagen en "Request $request" desde 
+    // $id llega como parametro desde api.php
+    public function actualizarImagen (Request $request, string $id)
     {
+        // return $request;
         $imagen = "";
         //preguntamos si realmente llega la imagen para cargarlo al file
-        if($file = $request->file("imagen")){
+        if($file = $request->file('imagen')){
             //formamos la direccion de subida de la imagen concatenando para evitar duplicidad
-            $direccion_imagen = time()."-".$file->getClientOriginalName();
+            $direccion_imagen = time()."-" .$file->getClientOriginalName();
             //lo subimos directamente a la carpeta public
             $file->move("imagenes/", $direccion_imagen);
-            $imagen = "imagenes/".$direccion_imagen;//actualizamos la variable
+            $imagen = "imagenes/". $direccion_imagen; //actualizamos la variable
             //para actualizar 1ro buscamos el producto por su $id identificador enviado por URL
             $producto = Producto::find($id);
             //una vez encontrado actualizamos solo su imagen
             $producto->imagen = $imagen; 
-            //ahora guardamos 
+            //ahora actualizamos el producto
             $producto->update();
+            
+        }else{
+            return response()->json(["mensaje" => "No hay imagenes que cargar"], 200);
         }
         return response()->json(["mensaje" => "Imagen Actualizada"], 200);
     }
